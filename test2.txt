@@ -1,0 +1,127 @@
+<?php	
+require_once 'core/init.php';
+include 'includes/head.php';
+
+$pr = array();
+$a = array();
+$arr = array();
+	$cartQ = $db->query("SELECT cart.items FROM transactions inner join cart on transactions.cart_id = cart.id");
+	
+	while($result = mysqli_fetch_assoc($cartQ)){
+	$items = json_decode($result['items'], true);
+
+
+
+//var_dump ($items);
+$string = '';
+	foreach ($items as $key => $value) {
+ // echo $value["id"] . ", " . $value["quantity"] . "<br>";
+   //var_dump($value);
+   $string = $value["id"] . ", " . $value["quantity"] .  "<br>";
+	//$a[] = $value;
+	 echo $string;
+  }
+ 
+}	
+
+
+	//$arr = array_merge($a, $items);
+	//echo $arr[0]['id'];
+	//var_dump($arr);
+
+	//$vals = array_count_values($arr);
+	//var_dump ($vals);
+	
+	
+	//echo $arr[0]['id'];
+//	echo count($vals);
+//echo $vals[];
+
+//print_r(array_count_values($arr));
+	$i = 1;
+	$sub_total=0;
+	$item_count = 0;
+
+?>
+
+<div class="col-md-12">
+	<div class="row">
+		<h2 class="text-center">Shopping Cart</h2><hr>
+		
+			<table class="table table-bordered table-condensed table-striped">
+				<thead>
+					<th>#</th>
+					<th>Item</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Size</th>
+					<th>Sub Total</th>
+				</thead>
+				<tbody>
+				<?php
+				while($result = mysqli_fetch_assoc($cartQ)){
+					$items = json_decode($result['items'], true);
+				foreach($items as $item){
+					$product_id = $item['id'];
+					$productQ = $db->query("SELECT * FROM products WHERE id='$product_id'");
+					$product = mysqli_fetch_assoc($productQ);
+					$sArray = explode(',',$product['sizes']);
+					//$item['size'] comes from the $items, which comes from cart table json string id size
+					foreach($sArray as $sizeString){
+						$s = explode(':', $sizeString);
+						if($s[0] == $item['size']){
+							$available = $s[1];
+						}
+					}
+				?>
+					<tr>
+						<td><?=$i ;?></td>
+						<td><?=$product['title'] ;?></td>
+						<td><?=money($product['price']) ;?></td>
+						<td>
+							<button class="btn btn-xs btn-default" onclick="update_cart('removeone', '<?=$product['id'] ;?>', '<?=$item['size'];?>');">-</button>
+							<?=$item['quantity'] ;?>
+							<?php if($item['quantity'] < $available) : ?>
+							<button class="btn btn-xs btn-default" onclick="update_cart('addone', '<?=$product['id'] ;?>', '<?=$item['size']; ?>');">+</button>
+							<?php else : ?>
+							<span class="text-danger">Max</span>
+							<?php endif; ?>
+						</td>
+						<td><?=$item['size'] ;?></td>
+						<td><?= money($item['quantity'] * $product['price']) ;?></td>
+					</tr>
+				<?php
+				$i++;
+				$item_count += $item['quantity'];
+				$sub_total += ($product['price'] * $item['quantity']);
+				}
+				}
+				$tax = TAXRATE * $sub_total;
+				$tax = number_format($tax, 2);
+				$grand_total = $tax + $sub_total;
+				$charge_amount = number_format($grand_total, 2) * 100;
+				?>
+				</tbody>
+			</table>
+			<table class="table table-bordered table-condensed table-striped text-right">
+			<legend>Totals</legend>
+				<thead class="totals-table-header">
+					<th>Total Items</th>
+				
+				</thead>
+				<tbody>
+					<tr>
+						<td class="text-center"><?=$item_count ;?></td>
+						
+					</tr>
+				</tbody>
+			</table>
+
+
+
+	</div>
+</div>
+
+<?php
+include 'includes/footer.php';
+?>

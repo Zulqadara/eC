@@ -1,0 +1,194 @@
+1) UI Index.php
+1.1 Navbar
+1.2 Header
+1.3 CSS Main.css
+1.3.1 Add Background Image
+1.4 Paralax effect using JQuery
+
+2) Adding Main Content Layout 3 coloumn layout 2 - 8 - 2 (12)
+2.1 Style image size to be all the same in Main.css (use ctrl+f5 to update)
+2.2 Add footer and style footer 
+2.3 Add modal
+2.3.1 Style modal images to be central in css
+
+3) Database
+3.1 Only one image is allowed
+3.2 Tags can be added for future
+
+4) Divide items into pages to upgrade for future
+4.1 Modal also divided
+
+5) DB connect file set up and Dynamic menu
+5.1 Loop database categories using mysqli
+5.2 Doesnt work for only 1 category (caterogry without sub category) *try on ur own, MEGA menus are common for big stores*
+
+6) Dynamically load products
+6.1 Add featured in products tabled, if 1 then it displays on the homepage
+6.2 Sizes included with quantity and diferent method used, advised to use a more effecient way
+6.3 var_dump used to debug arrays
+6.5 <?= is shortcut for <?php echo ?>
+
+7) AJAX/HTTP request for Modal *REVISE THIS VIDEO* https://www.youtube.com/watch?v=o24drX4S-vU
+7.1 Change modal button to javascript from bootstrap, script in footer.php
+7.2 Javascript function uses JSON string, AJAX is easy for modal display from db id, for specific items
+7.3 JSON URL is set up inn init.php
+7.4 Dynamic Modal page
+7.4.1 Sizes and quantity split using arrays and eplode() in php
+
+8) Admin Side
+8.1 Setting header, footer, nav and brands
+8.2 Brands table in brands.php
+8.2.1 Use CSS to reduce table size
+8.2.2 Dymanic Table of brands
+
+9) Add brands
+9.1 creat config.php (inlucdes baseurl, filepath of the system)
+9.2 remove baseurl from init.php and include config.php
+9.3 create helpers file (red bar error message), create functions that will be used often in the application
+9.4 How to keep values in text box after error so it doesnt reset after refresh and user has to type again. a new way to do if else '?'=if yes ':' if=no. (turnary operator <?=(())?'':''; ?>) | gets replaced in step 10 becasue of edit
+9.5 <hr> is line break with a line across 
+9.6 errors array
+9.7 function to print errors in headers.php
+9.8 add brands to db
+9.9 add secuirty to inputs
+
+10) Brands edit and delete
+10.1 Filepath issues
+10.2 use (int)$_GET[]/$_POST for id values
+10.3 delete brand
+10.4 edit brand
+10.4.1 use same form to add brand to edit brand
+
+11) Add categories
+11.1 Divide into parent and child in 1 table
+11.2 Sort error display
+11.3 Add categories and sub categories
+
+12) Delete Categories
+
+13) Edit Categories
+13.1 Same form to add categories will be used to edit
+
+14) Display Products
+14.1 Added a deleted column in products table
+14.2 Created a function to sort number by 2 decimals and include a dollar sign at the begining
+14.3 Button to toggle featured
+14.4 Category display steps in table 
+14.5 CSS on add button
+
+15) Add products
+15.1 Add products on the same page, but design changes based on whats clicked
+15.2 Dynamically generate child dropdown based on parent dropdown selection using ajax
+15.3 jQuery for quantity and sizes
+
+16) Modal for quantity and sizes
+16.1 Can add 12 different sizes and qtys
+16.2 *DOING ADDIOTINAL CHANGES, SO PAGE SUBMITS WHEN ENTER KEY IS PRESSED* (FORM TAGS ADDED IN MODAL and modul button changes to submit)
+
+17) Form Validation and IMAGE Validation and upload
+17.1 $_FILES if for files upload eg photos
+17.1.1 *CHECK MIME VALIDATION FOR PHOTOS*
+
+18) Edit Products
+18.1 Same form as add products
+
+19) Edit Products and Image Cont..
+19.1 Ajax to display category details
+19.2 CSS on image display in edit 
+19.3 *TRY OWN VALIDATION ON REPEATED PRODUCTS*
+19.4 *TRY FIX ERRORS OF WHEN A FEILD IS LEFT BLANk* Fixed
+
+20) Delete Products, but not from the DB due to report purposes (archive)
+20.1 *HOMEWORK: ARCHIVED PRODUCTS* || DONE!
+20.1 *Confirmation*
+
+21) Admin Login (with permsiions) and hashing
+21.1 CSS + repsonsive image background in login
+22.2 Admin Login
+
+22)Sessions
+22.1 Success/Warning messages flash, that show once
+22.2 *HOMEWORK: Display success message fpr 30 secs *
+
+23) Logout and Change Password
+23.1 Logout
+23.2 Change Password
+
+24)User Registration
+24.1 New way to display dates, better format
+24.2 User cant delete himself
+24.3 * HOME WOKR: EDIT USERS *
+
+25) Homepage Navigation 
+25.1 Function in helpers to get category using sql joins
+25.2 Change UI
+
+26) Bug Squash
+26.1 Image edit bug
+26.2 Image enlarge on modal
+
+27) Cart
+27.1 jQuery to check if user selects more than available or if a user doesnt select any value (validation)
+27.2 Cookie
+27.3 *Quantity > available message only appears if quanitity is added using the arrow buttons on form not keyboard (Fixed. somethimes occurs)* *try limit max to available; added jquery to limit input to 50000*
+
+28) Cart display page
+28.1 *Try updating only table not entire page if quantity is added/removed*
+28.1 Tax Rate inclusion
+
+29) Update Cart
+
+30) 2 step check out process
+30.1 Form divided into 2 parts that change if next is pressed, works using jquery
+30.2 Assosiative array in check_address.php
+30.3 name shouldt be used in html form when using credit card info
+
+31) Payment gateway using 'stripe'
+31.1 Email: zulqadar_a@hotmail.com, Password: Zulqadar.1
+31.2 DOWNLOAD 'Composer'
+31.3 Composer creates files in directory and vednor folder
+31.4 Added the autolading in core/init.php
+31.5 Javascript file in head.php
+31.6 Constants in config.php , constants are keys used to access stripe
+
+32) Setting up stripe on pages
+32.1 *Didnt work, will try my own method from the stripe site. WORKED*
+32.3 *https://stripe.com/docs/checkout#integration-custom to change the payment form from stripe*
+32.4 *Customer showing as example on swipre dash* fixked, but old customer is taken as new*
+
+33) Update inventory
+33.1 Not show size if quanityt is 0 in modal
+
+34) Bug squash
+34.1 Descprition and list price dont get deleted
+34.2 Deleting image errors
+
+35) Right side bar widgets
+35.1 Cart Display
+35.2 Populat Items (Recent Sales)
+35.3 Style CSS
+
+36) Left Right bar widget
+36.1 Search by brand and price range
+
+37) Upload more photos and slide show
+37.1 Add array to file name in form to allow multiple entires
+37.2 Slide show on modal from fotorama.io
+37.3 *More images cant be added, if iamges already exist*
+37.4 Fix CSS on admin edit images, *Large Images cant be stored!*
+37.5 Fix CSS on modal images
+37.6 *Add thumbnails*
+
+38 Completing order + shipping
+38.1 LEFT JOIN with IN (orders.php)
+
+39) Sales per month
+39.1 display sales of last year and this year
+39.2 Highlight current month
+
+40) Low Inventory
+40.1 Turn red if quantity is 0
+
+***
+- Featured products still there after delete(done)
+- Orders showing of 1, fixed (copied cart code and modified. Originzal orders page = ordersbak.php)
